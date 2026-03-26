@@ -3,6 +3,8 @@ import Home from "../pages/Home";
 import Apod from "../pages/Apod";
 import Mars from "../pages/Mars";
 import MainLayout from "../layout/MainLayout";
+import Login from "../pages/Login";
+import ProtectedRoute from "../routes/ProtectedRoute";
 
 export default function AppRouter() {
   return (
@@ -12,7 +14,12 @@ export default function AppRouter() {
           <Route path="/" element={<Home />} />
           <Route path="/apod" element={<Apod />} />
           <Route path="/mars" element={<Mars />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/collections" element={<div>Collections Page - Protected</div>} />
+          </Route>
         </Route>
+        <Route path="/login" element={<Login />} />
+       
       </Routes>
    
   );
