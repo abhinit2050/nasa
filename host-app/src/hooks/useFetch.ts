@@ -16,6 +16,9 @@ export default function useFetch(url:string){
         .then((data)=>{
              setLoading(false);
             setData(data);
+            if(data.code=400){
+                setError(data.msg);
+            }
            })
         .catch((error)=>{
             setLoading(false);  
