@@ -13,11 +13,11 @@ export default function useFetch(url:string){
         setError(null);
 
         fetch(url).then((response)=>response.json())
-        .then((data)=>{
+        .then((res)=>{
              setLoading(false);
-            setData(data);
-            if(data.code=400){
-                setError(data.msg);
+            setData(res);
+            if(res.code==400){
+                setError(res.msg);
             }
            })
         .catch((error)=>{

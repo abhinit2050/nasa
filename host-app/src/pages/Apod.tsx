@@ -31,9 +31,10 @@ const Apod = () => {
       <div className={styles.header}>
         <p className={styles.eyebrow}>NASA Explorer</p>
         <h1 className={styles.apodTitle}>Astronomy Picture of the Day</h1>
-        <h3 className={styles.apodSubtitle}>{data.title}</h3>
+      
 
         <div className={styles.controls}>
+           
           <input
             type="date"
             value={date}
@@ -50,6 +51,7 @@ const Apod = () => {
      
 
       <div className={styles.imageContainer}>
+         <h3 className={styles.apodSubtitle}>{data.title}</h3>
         {data.media_type === "image" && (
           <img src={data.url} alt={data.title} className={styles.apodImage} />
         )}
