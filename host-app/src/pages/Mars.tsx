@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import styles from "./Mars.module.css";
 
 const Mars = () => {
   const [page, setPage] = useState(1);
-
-  const NASA_API_KEY = import.meta.env.VITE_NASA_API_KEY;
+  const [allItems, setAllItems] = useState<any[]>([]);
+  const [hasMore, setHasMore] = useState(true);
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
   const MARS_URL = `https://images-api.nasa.gov/search?q=mars&media_type=image&page=${page}`;
 
@@ -13,16 +14,37 @@ const Mars = () => {
   const items = data?.collection?.items || [];
 
   useEffect(() => {
-    console.log("Mars Rover Data:", items);
-  }, [data]);
+    if (items.length === 0) {
+      setHasMore(false);
+    }
 
-  if (loading) {
-    return <div className={styles.loadingState}>🚀 Fetching Mars photos...</div>;
+    if (items.length > 0) {
+      setHasMore(true);
+      setAllItems((prev) => {
+        const newItems = items.filter(
+          (item: any) =>
+            !prev.some((p: any) => p.data[0].nasa_id === item.data[0].nasa_id),
+        );
+
+        return [...prev, ...newItems];
+      });
+    }
+  }, [items]);
+
+  useEffect(() => {
+    if (loadMoreRef.current && page > 1) {
+      loadMoreRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [allItems]);
+
+  if (loading && allItems.length === 0) {
+    return <div className={styles.loadingState}>Fetching Mars photos...</div>;
   }
 
   if (error) {
-    return <div className={styles.errorState}>🚀 Error Fetching Mars photos!</div>;
+    return <div className={styles.errorState}>Error Fetching Mars photos!</div>;
   }
+
 
   return (
     <section className={styles.marsPage}>
@@ -45,7 +67,7 @@ const Mars = () => {
       </div>
 
       <div className={styles.grid}>
-        {items.map((item:any, index:number) => {
+        {allItems?.map((item: any, index: number) => {
           const image = item.links?.[0]?.href;
           const title = item.data?.[0]?.title;
           const date = item.data?.[0]?.date_created?.split("T")[0];
@@ -53,7 +75,12 @@ const Mars = () => {
 
           return (
             <div key={index} className={styles.photoCard}>
-              <img src={image} alt={title} className={styles.photoImage} />
+              <img
+                src={image}
+                alt={title}
+                className={styles.photoImage}
+                loading="lazy"
+              />
               <div className={styles.photoInfo}>
                 <div className={styles.photoDate}>📅 {date}</div>
                 <p className={styles.photoCamera}>{title}</p>
@@ -61,6 +88,24 @@ const Mars = () => {
             </div>
           );
         })}
+      </div>
+      {loading && allItems.length > 0 && (
+        <div className={styles.grid}>
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className={styles.shimmerCard}></div>
+          ))}
+        </div>
+      )}
+      <div className={styles.loadMore} ref={loadMoreRef}>
+        {hasMore && (
+          <button
+            onClick={() => setPage((prev) => prev + 1)}
+            disabled={loading}
+            style={{ cursor: "pointer" }}
+          >
+            {loading ? "Loading..." : "Load More"}
+          </button>
+        )}
       </div>
     </section>
   );
