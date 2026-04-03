@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import "./Layout.css"
 import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 
 export default function Header() {
 
     const {user, logout} = useAuth();
-
+    const {mode, toggleTheme} = useTheme();
 
   return (
     <header className="header">
@@ -24,6 +25,9 @@ export default function Header() {
             <span className="userGreeting">Hi {user?.username}</span>
             <button className="authButton" onClick={logout}>
               Logout
+            </button>
+            <button className="themeButton" onClick={toggleTheme}>
+                {mode === "dark" ? "🌙 Dark" : "☀️ Light"}
             </button>
           </div>
         )}

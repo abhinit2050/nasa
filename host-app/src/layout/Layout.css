@@ -75,6 +75,28 @@
   background: rgba(255, 255, 255, 0.17);
 }
 
+.themeButton {
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(100, 150, 255, 0.15);
+  color: white;
+  border-radius: 6px;
+  padding: 0.22rem 0.62rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.themeButton:hover {
+  background: rgba(100, 150, 255, 0.28);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: scale(1.05);
+}
+
+.themeButton:active {
+  transform: scale(0.98);
+}
+
 .main-content {
   flex: 1;
   padding: 2rem;

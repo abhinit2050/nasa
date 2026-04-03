@@ -10,7 +10,7 @@
 
 .eyebrow {
   font-size: 0.85rem;
-  color: #a0aec0;
+  /* color: #a0aec0; */
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin: 0 0 0.5rem 0;
@@ -18,14 +18,14 @@
 }
 
 .marsTitle {
-  color: #f2f5ff;
+  /* color: #f2f5ff; */
   font-size: 2.2rem;
   margin: 0 0 0.5rem 0;
   line-height: 1.2;
 }
 
 .marsSubtitle {
-  color: #d4dff7;
+  /* color: #d4dff7; */
   font-size: 1.25rem;
   margin: 0 0 1.5rem 0;
 }
@@ -119,14 +119,14 @@
 
 .photoDate {
   font-size: 0.85rem;
-  color: #a0d4ff;
+  /* color: #a0d4ff; */
   margin-bottom: 0.5rem;
   font-weight: 500;
 }
 
 .photoCamera {
   font-size: 0.9rem;
-  color: #cbd5e1;
+  /* color: #cbd5e1; */
   margin: 0;
 }
 
@@ -137,7 +137,7 @@
   align-items: center;
   min-height: 50vh;
   font-size: 1.1rem;
-  color: #e2e8f0;
+  /* color: #e2e8f0; */
 }
 
 .errorState {
@@ -176,11 +176,11 @@
     height: 200px;
   }
 }
+
 .loadMore {
   display: flex;
   justify-content: center;
   margin: 2rem 0;
-  
 }
 
 .shimmerCard {
@@ -188,9 +188,9 @@
   border-radius: 12px;
   background: linear-gradient(
     90deg,
-    rgba(255,255,255,0.05) 25%,
-    rgba(255,255,100,0.15) 50%,
-    rgba(255,255,255,0.05) 75%
+    rgba(255, 255, 255, 0.05) 25%,
+    rgba(255, 255, 100, 0.15) 50%,
+    rgba(255, 255, 255, 0.05) 75%
   );
   background-size: 200% 100%;
   

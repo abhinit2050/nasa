@@ -2,3 +2,12 @@
   width: 100%;
 }
 
+.dark {
+  background-color: #0b0f1a;
+  color: #f2f5ff;
+}
+
+.light {
+  background-color: #ffffff;
+  color: #111;
+}
