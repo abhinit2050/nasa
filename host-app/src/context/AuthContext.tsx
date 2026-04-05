@@ -17,14 +17,19 @@ const AuthContext = createContext<AuthContextType|null>(null);
 
 export function AuthProvider({children}:{children:React.ReactNode}){
 
-    const [user, setUser] = useState<User|null>(null);
+    const [user, setUser] = useState<User|null>(()=>{
+        const saved = localStorage.getItem("user");
+        return saved? JSON.parse(saved):null
+    });
 
     const login = (newUser:User)=>{
         setUser(newUser);
+        localStorage.setItem("user", JSON.stringify(newUser));
     }
 
     const logout = ()=>{
         setUser(null);
+        localStorage.removeItem("user");
     }
 
     return(

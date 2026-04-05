@@ -1,12 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import styles from "./Mars.module.css";
+import type { RootState } from "../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem } from "../store/slices/collectionsSlice";
 
 const Mars = () => {
   const [page, setPage] = useState(1);
   const [allItems, setAllItems] = useState<any[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
+  const dispatch = useDispatch();
+  const collectedItems = useSelector((state:RootState) => state.collections.items);
 
   const MARS_URL = `https://images-api.nasa.gov/search?q=mars&media_type=image&page=${page}`;
 
@@ -44,6 +49,8 @@ const Mars = () => {
   if (error) {
     return <div className={styles.errorState}>Error Fetching Mars photos!</div>;
   }
+
+  console.log("saved items", collectedItems);
 
 
   return (
@@ -85,6 +92,7 @@ const Mars = () => {
                 <div className={styles.photoDate}>📅 {date}</div>
                 <p className={styles.photoCamera}>{title}</p>
               </div>
+              <button onClick={()=>dispatch(addItem({id:title, image}))}>Save</button>
             </div>
           );
         })}
