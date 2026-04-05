@@ -93,12 +93,16 @@
 }
 
 .photoCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
+  min-height: 420px;
 }
 
 .photoCard:hover {
@@ -115,6 +119,52 @@
 
 .photoInfo {
   padding: 1rem;
+}
+
+.saveButton {
+  margin: 0 1rem 1rem;
+  padding: 0.85rem 1rem;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(110deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.saveButton:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(110deg, #2563eb 0%, #1d4ed8 100%);
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.25);
+}
+
+.saveButton:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.snackbar {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  padding: 0.9rem 1.25rem;
+  border-radius: 999px;
+  min-width: 260px;
+  text-align: center;
+  font-weight: 600;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22);
+  z-index: 999;
+  color: white;
+}
+
+.snackbarSuccess {
+  background: linear-gradient(110deg, #22c55e 0%, #16a34a 100%);
+}
+
+.snackbarError {
+  background: linear-gradient(110deg, #ef4444 0%, #b91c1c 100%);
 }
 
 .photoDate {

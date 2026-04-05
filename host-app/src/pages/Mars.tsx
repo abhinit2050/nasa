@@ -9,6 +9,7 @@ const Mars = () => {
   const [page, setPage] = useState(1);
   const [allItems, setAllItems] = useState<any[]>([]);
   const [hasMore, setHasMore] = useState(true);
+  const [snackbar, setSnackbar] = useState<{ message: string; type: "success" | "error" } | null>(null);
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   const dispatch = useDispatch();
   const collectedItems = useSelector((state:RootState) => state.collections.items);
@@ -42,6 +43,16 @@ const Mars = () => {
     }
   }, [allItems]);
 
+  useEffect(() => {
+    if (!snackbar) return;
+
+    const timeout = window.setTimeout(() => {
+      setSnackbar(null);
+    }, 3000);
+
+    return () => window.clearTimeout(timeout);
+  }, [snackbar]);
+
   if (loading && allItems.length === 0) {
     return <div className={styles.loadingState}>Fetching Mars photos...</div>;
   }
@@ -52,6 +63,25 @@ const Mars = () => {
 
   console.log("saved items", collectedItems);
 
+  const handleSave = (item: any) => {
+    const title = item.data?.[0]?.title;
+    const image = item.links?.[0]?.href;
+
+    if (!title || !image) {
+      setSnackbar({ message: "Unable to save this item.", type: "error" });
+      return;
+    }
+
+    const alreadySaved = collectedItems.some((saved: any) => saved.id === title);
+
+    if (alreadySaved) {
+      setSnackbar({ message: "This item is already in your collection.", type: "error" });
+      return;
+    }
+
+    dispatch(addItem({ id: title, image }));
+    setSnackbar({ message: "Saved to your collection!", type: "success" });
+  };
 
   return (
     <section className={styles.marsPage}>
@@ -74,7 +104,7 @@ const Mars = () => {
       </div>
 
       <div className={styles.grid}>
-        {allItems?.map((item: any, index: number) => {
+        {allItems?.slice(50).map((item: any, index: number) => {
           const image = item.links?.[0]?.href;
           const title = item.data?.[0]?.title;
           const date = item.data?.[0]?.date_created?.split("T")[0];
@@ -92,7 +122,9 @@ const Mars = () => {
                 <div className={styles.photoDate}>📅 {date}</div>
                 <p className={styles.photoCamera}>{title}</p>
               </div>
-              <button onClick={()=>dispatch(addItem({id:title, image}))}>Save</button>
+              <button className={styles.saveButton} onClick={() => handleSave(item)}>
+                Save
+              </button>
             </div>
           );
         })}
@@ -115,6 +147,14 @@ const Mars = () => {
           </button>
         )}
       </div>
+
+      {snackbar && (
+        <div className={`${styles.snackbar} ${
+          snackbar.type === "success" ? styles.snackbarSuccess : styles.snackbarError
+        }`}>
+          {snackbar.message}
+        </div>
+      )}
     </section>
   );
 };
