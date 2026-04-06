@@ -79,7 +79,7 @@ const Mars = () => {
       return;
     }
 
-    dispatch(addItem({ id: title, image }));
+    dispatch(addItem({ id: title, image, note:"" }));
     setSnackbar({ message: "Saved to your collection!", type: "success" });
   };
 

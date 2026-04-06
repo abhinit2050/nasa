@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  justify-content: space-between;
   gap: 0.9rem;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.14);
@@ -54,7 +55,6 @@
 }
 
 .removeButton {
-  margin-top: auto;
   align-self: stretch;
   padding: 0.75rem 1rem;
   border: none;
@@ -73,6 +73,89 @@
 
 .removeButton:active {
   transform: translateY(0);
+}
+
+.addButton {
+  align-self: stretch;
+  position: relative;
+  bottom: 10%;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: rgba(34, 197, 94, 0.95);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.addButton:hover {
+  background: rgba(22, 163, 74, 1);
+  transform: translateY(-1px);
+}
+
+:global(.light) .addButton {
+  background: rgba(34, 197, 94, 0.9);
+  color: white;
+}
+
+:global(.light) .addButton:hover {
+  background: rgba(22, 163, 74, 0.95);
+}
+
+.editButton {
+  align-self: stretch;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: rgba(59, 130, 246, 0.95);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.editButton:hover {
+  background: rgba(37, 99, 235, 1);
+  transform: translateY(-1px);
+}
+
+:global(.light) .editButton {
+  background: rgba(59, 130, 246, 0.9);
+  color: white;
+}
+
+:global(.light) .editButton:hover {
+  background: rgba(37, 99, 235, 0.95);
+}
+
+.saveButton {
+  align-self: stretch;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background: rgba(34, 197, 94, 0.95);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.saveButton:hover {
+  background: rgba(22, 163, 74, 1);
+  transform: translateY(-1px);
+}
+
+:global(.light) .saveButton {
+  background: rgba(34, 197, 94, 0.9);
+  color: white;
+}
+
+:global(.light) .saveButton:hover {
+  background: rgba(22, 163, 74, 0.95);
 }
 @media (max-width: 640px) {
   .grid {
